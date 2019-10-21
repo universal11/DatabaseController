@@ -4,40 +4,40 @@ using MySql.Data.MySqlClient;
 
 namespace DatabaseController
 {
-    public class MySQLClient
+    public class MySqlClient
     {
         public MySqlConnection connection { get; set; }
         private string connectionString { get; set; }
 
 
-        public void init(string connectionString)
+        public void Init(string connectionString)
         {
             this.connectionString = connectionString;
         }
 
-        public bool isConnected()
+        public bool IsConnected()
         {
             return ((this.connection.State == ConnectionState.Open) ? true : false);
         }
 
 
-        public static MySQLClient create(string connectionName)
+        public static MySqlClient Create(string connectionName)
         {
-            MySQLClient dbClient = new MySQLClient();
-            dbClient.init(connectionName);
-            dbClient.connect();
+            MySqlClient dbClient = new MySqlClient();
+            dbClient.Init(connectionName);
+            dbClient.Connect();
             return dbClient;
         }
 
-        public static MySQLClient createWithConnect(string connectionString)
+        public static MySqlClient CreateWithConnect(string connectionString)
         {
-            MySQLClient dbClient = new MySQLClient();
-            dbClient.init(connectionString);
-            dbClient.connect();
+            MySqlClient dbClient = new MySqlClient();
+            dbClient.Init(connectionString);
+            dbClient.Connect();
             return dbClient;
         }
 
-        public void connect()
+        public void Connect()
         {
             this.connection = new MySqlConnection(this.connectionString);
             try
@@ -51,7 +51,7 @@ namespace DatabaseController
 
         }
 
-        public MySqlDataReader query(MySqlCommand command)
+        public MySqlDataReader Query(MySqlCommand command)
         {
             MySqlDataReader result = null;
             try
@@ -66,7 +66,7 @@ namespace DatabaseController
             return result;
         }
 
-        public int update(MySqlCommand command)
+        public int Update(MySqlCommand command)
         {
             int result = 0;
             try
@@ -81,7 +81,7 @@ namespace DatabaseController
             return result;
         }
 
-        public int delete(MySqlCommand command)
+        public int Delete(MySqlCommand command)
         {
             int result = 0;
             try
@@ -99,7 +99,7 @@ namespace DatabaseController
         ///<summary>
         /// Performs insert and returns number of rows.
         ///</summary>
-        public int insert(MySqlCommand command)
+        public int Insert(MySqlCommand command)
         {
             int result = 0;
             try
@@ -114,13 +114,13 @@ namespace DatabaseController
             return result;
         }
 
-        public int getLastInsertId(MySqlCommand command)
+        public int GetLastInsertId(MySqlCommand command)
         {
             return (int)command.LastInsertedId;
         }
 
 
-        public static DateTime? parseDateTime(MySqlDataReader reader, string fieldName)
+        public static DateTime? ParseDateTime(MySqlDataReader reader, string fieldName)
         {
             if (DBNull.Value.Equals(reader[fieldName]))
             {
@@ -129,7 +129,7 @@ namespace DatabaseController
             return (DateTime?)reader[fieldName];
         }
 
-        public void close()
+        public void Close()
         {
             try
             {
@@ -141,31 +141,40 @@ namespace DatabaseController
             }
         }
 
-        public static object parseParameter(object parameter)
+        public static object ParseParameter(object parameter)
         {
             return ((parameter == null) ? DBNull.Value : parameter);
         }
 
 
-        public static int parseInteger(MySqlDataReader reader, string fieldName)
+        public static int ParseInteger(MySqlDataReader reader, string fieldName)
         {
             if (DBNull.Value.Equals(reader[fieldName]))
             {
-                return -1;
+                return 0;
             }
             return Convert.ToInt32(reader[fieldName]);
         }
 
-        public static decimal parseDecimal(MySqlDataReader reader, string fieldName)
+        public static int? ParseNullableInteger(MySqlDataReader reader, string fieldName)
+        {
+            if (DBNull.Value.Equals(reader[fieldName]))
+            {
+                return null;
+            }
+            return Convert.ToInt32(reader[fieldName]);
+        }
+
+        public static decimal ParseDecimal(MySqlDataReader reader, string fieldName)
         {
             if(DBNull.Value.Equals(reader[fieldName]))
             {
-                return -1;
+                return 0;
             }
             return Convert.ToDecimal(reader[fieldName]);
         }
 
-        public static string parseString(MySqlDataReader reader, string fieldName)
+        public static string ParseString(MySqlDataReader reader, string fieldName)
         {
             if (DBNull.Value.Equals(reader[fieldName]))
             {
@@ -175,7 +184,7 @@ namespace DatabaseController
         }
 
 
-        public static bool parseBoolean(MySqlDataReader reader, string fieldName)
+        public static bool ParseBoolean(MySqlDataReader reader, string fieldName)
         {
             if (DBNull.Value.Equals(reader[fieldName]))
             {
