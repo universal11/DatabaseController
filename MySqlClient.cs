@@ -156,6 +156,15 @@ namespace DatabaseController
             return Convert.ToInt32(reader[fieldName]);
         }
 
+        public static long ParseLong(MySqlDataReader reader, string fieldName)
+        {
+            if (DBNull.Value.Equals(reader[fieldName]))
+            {
+                return 0;
+            }
+            return Convert.ToInt64(reader[fieldName]);
+        }
+
         public static int? ParseNullableInteger(MySqlDataReader reader, string fieldName)
         {
             if (DBNull.Value.Equals(reader[fieldName]))
@@ -163,6 +172,15 @@ namespace DatabaseController
                 return null;
             }
             return Convert.ToInt32(reader[fieldName]);
+        }
+
+        public static long? ParseNullableLong(MySqlDataReader reader, string fieldName)
+        {
+            if (DBNull.Value.Equals(reader[fieldName]))
+            {
+                return null;
+            }
+            return Convert.ToInt64(reader[fieldName]);
         }
 
         public static decimal ParseDecimal(MySqlDataReader reader, string fieldName)
