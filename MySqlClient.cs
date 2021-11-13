@@ -46,7 +46,7 @@ namespace DatabaseController
             }
             catch (Exception exception)
             {
-                SystemConsole.WriteLine(exception.ToString());
+                System.Console.WriteLine(exception.ToString());
             }
 
         }
@@ -61,7 +61,7 @@ namespace DatabaseController
             }
             catch (Exception exception)
             {
-                SystemConsole.WriteLine(exception.ToString());
+                System.Console.WriteLine(exception.ToString());
             }
             return result;
         }
@@ -76,7 +76,7 @@ namespace DatabaseController
             }
             catch (Exception exception)
             {
-                SystemConsole.WriteLine(exception.ToString());
+                System.Console.WriteLine(exception.ToString());
             }
             return result;
         }
@@ -91,7 +91,7 @@ namespace DatabaseController
             }
             catch(Exception exception)
             {
-                SystemConsole.WriteLine(exception.ToString());
+                System.Console.WriteLine(exception.ToString());
             }
             return result;
         }
@@ -137,7 +137,7 @@ namespace DatabaseController
             }
             catch (Exception ex)
             {
-                SystemConsole.WriteLine(ex.ToString());
+                System.Console.WriteLine(ex.ToString());
             }
         }
 
