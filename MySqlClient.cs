@@ -156,6 +156,15 @@ namespace DatabaseController
             return Convert.ToInt32(reader[fieldName]);
         }
 
+        public static uint ParseUnsignedInteger(MySqlDataReader reader, string fieldName)
+        {
+            if (DBNull.Value.Equals(reader[fieldName]))
+            {
+                return 0;
+            }
+            return Convert.ToUInt32(reader[fieldName]);
+        }
+
         public static long ParseLong(MySqlDataReader reader, string fieldName)
         {
             if (DBNull.Value.Equals(reader[fieldName]))
