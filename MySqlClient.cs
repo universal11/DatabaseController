@@ -174,8 +174,7 @@ namespace DatabaseController
             return Convert.ToInt32(reader[fieldName]);
         }
 
-        public static long? ParseNullableLong(MySqlDataReader reader, string fieldName)
-        {
+        public static long? ParseNullableLong(MySqlDataReader reader, string fieldName){
             if (DBNull.Value.Equals(reader[fieldName]))
             {
                 return null;
@@ -209,6 +208,17 @@ namespace DatabaseController
                 return false;
             }
             return Convert.ToBoolean(reader[fieldName]);
+        }
+
+        public static byte[] ParseLongBlob(MySqlDataReader reader, string fieldName, uint fileSize){
+            if (DBNull.Value.Equals(reader[fieldName])){
+                return new byte[0];
+            }
+
+            // byte[] data = new byte[fileSize];
+            // reader.GetBytes(reader.GetOrdinal(fieldName), 0, data, 0, (int)fileSize);
+            // return Convert.ToString(reader[fieldName]);
+            return (byte[])reader[fieldName];
         }
 
     }
